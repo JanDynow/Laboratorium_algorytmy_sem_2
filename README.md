@@ -1,2 +1,2 @@
 # Laboratorium_algorytmy_sem_2
-asjdhaksjhd
+asjdhaksjhdsda
