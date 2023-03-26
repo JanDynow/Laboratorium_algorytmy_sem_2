@@ -1,9 +1,14 @@
-def wynik(i):
-    if i<3:
-        return 1
+def wyniki(i):
+    print("wywołano")
+    if(i<3):
+        # print("mniejsze od 3")
+        return 1 
+
+    if (i%2==0):
+        # print("parzyste")
+        return (wyniki(i-3)+(wyniki(i-1)+1))
     else:
-        if i % 2 == 0:
-            return wynik(i - 3) + wynik(i - 1)+1
-        else:
-            return wynik(i - 1) % 7
-print(wynik(5))
+        # print("modulo")
+        return (wyniki((i-1)%7))
+
+print(wyniki(4))
