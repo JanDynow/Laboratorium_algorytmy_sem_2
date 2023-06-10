@@ -1,51 +1,142 @@
-class Stack:
+# lilista jdnokierunkowa
+
+class Node:
+    def __init__(self,initdata):
+        self.data=initdata
+        self.next=None
+
+    def getdata(self):
+        return self.data
+
+    def getNext(self):
+        return self.next
+
+    def setData(self,newdata):
+        self.data=newdata
+
+    def setNext(self,newnext):
+        self.next=newnext
+
+#temp=Node(93)
+
+
+class unOrderdList:
     def __init__(self):
-        self.items = []
+        self.head=None
+
     def isEmpty(self):
-        return self.items == []
-    def push(self, item):
-        self.items.append(item)
-    def pop(self):
-        return self.items.pop()
-    def peek(self):
-        return  self.items[len(self.items)-1]
+        return self.head==None
+
+    def add(self,item):
+        temp= Node(item)
+        temp.setNext(self.head)
+        self.head=temp
+
     def size(self):
-        return len(self.items)
-a='}])([{]'
-s= Stack()
-l=len(a)
-naw = [['(',')'],['[',']'],['{','}']]
+        current= self.head
+        count=0
+        while current != None:
+            count= count+1
+            current = current.getNext()
+        return count
 
-print(naw)
-
-for x in naw:
-    i=0
-    b=0
-    s.__init__()
-    
-    while i<l:
-
-        if a[i]==x[0]:
-            s.push(a[i])
-        else:
-            if s.isEmpty() and a[i]==x[1]:
-                # print("zamykajacy w ineksie",i)
-                b=b+1
-            elif a[i]==x[1]:
-                s.pop()
+    def search(self,item):
+        current=self.head
+        found=False
+        while current != None and not found:
+            if current.getdata() == item:
+                found=True
             else:
-                pass
-        i+=1
+                current=current.getNext()
+        return found
+
+
+    def remove(self,item):
+        current=self.head
+        previous= None
+        found=False
+        while not found:
+            if current.getdata()==item:
+                found=True
+            else:
+                previous=current
+                current=current.getNext()
+        if previous==None:
+            self.head=current.getNext()
+        else:
+            previous.setNext(current.getNext())
     
-    if s.size()>0 and b>0:
-        print("złe ustawienie 'końcowych' nawiasów: ",x[1],x[0])
-        
-    if b==0 and s.isEmpty(): 
-            print("wszystko dobrze ",x[0],x[1])
+    def remove_ith_node(self, i):
+        current = self.head
+        previous = None
+        count = 0
 
-    if s.size()>0:
-        print("za durzo otwierających ",x[0]," ", s.size())
-    if b>0:
-        print("za durzo zamykajacych ",x[1]," ", b)
+        # Przechodzimy do i-tego węzła
+        while current is not None and count < i:
+            previous = current
+            current = current.getNext()
+            count += 1
+        # Jeśli i-ty węzeł został znaleziony
+        if current is not None:
+            # Jeśli i-ty węzeł jest głową listy
+            if previous is None:
+                self.head = current.getNext()
+                return print('jestem tutaj')
+            else:
+                previous.setNext(current.getNext())
+                return print("czy jestem tutaj")
+    
 
-    print()
+    def merge_sorted_lists(list1, list2):
+        merged_list = unOrderdList()
+
+        current1 = list1.head
+        current2 = list2.head
+
+        # Porównujemy wartości węzłów z obu list i dodajemy je do nowej listy
+        while current1 is not None and current2 is not None:
+            if current1.getdata() > current2.getdata():
+                merged_list.add(current1.getdata())
+                current1 = current1.getNext()
+            else:
+                merged_list.add(current2.getdata())
+                current2 = current2.getNext()
+
+        # Dodajemy pozostałe węzły z listy 1, jeśli istnieją
+        while current1 is not None:
+            merged_list.add(current1.getdata())
+            current1 = current1.getNext()
+
+        # Dodajemy pozostałe węzły z listy 2, jeśli istnieją
+        while current2 is not None:
+            merged_list.add(current2.getdata())
+            current2 = current2.getNext()
+
+        return merged_list
+
+            
+          
+
+list1 = unOrderdList()
+list1.add(1)
+list1.add(3)
+list1.add(5)
+
+list2 = unOrderdList()
+list2.add(2)
+list2.add(4)
+list2.add(6)
+
+merged_list = unOrderdList.merge_sorted_lists(list1, list2)
+print(merged_list.size())
+# Wyświetlenie elementów nowej scalonej listy
+current = merged_list.head
+while current is not None:
+    print(current.getdata())
+    current = current.getNext()
+
+
+
+
+
+

@@ -1,50 +1,105 @@
-#zadeklarować 2 zmienne 1 boolowska zakładająca ze stos jest poprawny oraz zmienna index służąca do przechopdzenia do przechodzenia po elementach listy
-# wchodzimy do while dopóki index jest mniejszy od size(stosu) lub do wystapienia pierwszego błędu
-# odczytaj kolejny znak kolejnymkrokiem bedczie jeśli znak jest ( dodaj znak na stos w przeciwnym wypadku oznacza że jest to ) sprawdź czy stos jest pusty to pod zmienna podstaw false
-# w przeciwnym wypadku ściąg element ze stosu i przejdź do klolejnego elementu
-#
+# lilista jdnokierunkowa
 
-class Stack:
+class Node:
+    def __init__(self,initdata):
+        self.data=initdata
+        self.next=None
+
+    def getdata(self):
+        return self.data
+
+    def getNext(self):
+        return self.next
+
+    def setData(self,newdata):
+        self.data=newdata
+
+    def setNext(self,newnext):
+        self.next=newnext
+
+#temp=Node(93)
+
+
+class unOrderdList:
     def __init__(self):
-        self.items = []
+        self.head=None
+
     def isEmpty(self):
-        return self.items == []
-    def push(self, item):
-        self.items.append(item)
-    def pop(self):
-        return self.items.pop()
-    def peek(self):
-        return  self.items[len(self.items)-1]
+        return self.head==None
+
+    def add(self,item):
+        temp= Node(item)
+        temp.setNext(self.head)
+        self.head=temp
+
     def size(self):
-        return len(self.items)
+        current= self.head
+        count=0
+        while current != None:
+            count= count+1
+            current = current.getNext()
+        return count
+
+    def search(self,item):
+        current=self.head
+        found=False
+        while current != None and not found:
+            if current.getdata() == item:
+                found=True
+            else:
+                current=current.getNext()
+        return found
 
 
-s = Stack()
-a= "(())()()"
-tab = list(a)
-l = len(a)
-i=0
-b=0
-#print(tab)
-while i < l:
-    if tab[i] == '(':
-        s.push(tab[i])
-        #print('otwierajacy')
-    else:
-        if s.isEmpty():
-            b=+1
+    def remove(self,item):
+        current=self.head
+        previous= None
+        found=False
+        while not found:
+            if current.getdata()==item:
+                found=True
+            else:
+                previous=current
+                current=current.getNext()
+        if previous==None:
+            self.head=current.getNext()
         else:
-            s.pop()
-            #print('zamykajacy')
-    i += 1
-if b == 0:
-    if s.isEmpty():
-        print("Wszystko jest pootwierane i pozamykane")
-    else:
-        print("Brakuje otwierających nawiasów: ", s.size())
-        #print(s.size())
-else:
-    print("za dużo zamykających: ", b)
+            previous.setNext(current.getNext())
+    
+    def remove_ith_node(self, i):
+        current = self.head
+        previous = None
+        count = 0
+
+        # Przechodzimy do i-tego węzła
+        while current is not None and count < i:
+            previous = current
+            current = current.getNext()
+            count += 1
+        # Jeśli i-ty węzeł został znaleziony
+        if current is not None:
+            # Jeśli i-ty węzeł jest głową listy
+            if previous is None:
+                self.head = current.getNext()
+                return print('jestem tutaj')
+            else:
+                previous.setNext(current.getNext())
+                return print("czy jestem tutaj")
+
+            
+          
+
+mylist=unOrderdList()
+mylist.add(12)
+mylist.add(1)
+mylist.add(23)
+mylist.add(32)
+
+print(mylist.size())
+mylist.remove_ith_node(2)
+print(mylist.size())
+print(mylist.search(1))
+
 
 
 
