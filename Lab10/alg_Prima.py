@@ -40,7 +40,7 @@ class Graph:
         return result
 
 g = Graph()
-g.add_edge('A', 'B', 1)
+g.add_edge('A', 'B', 1) 
 g.add_edge('A', 'E', 4)
 g.add_edge('A', 'F', 8)
 g.add_edge('B', 'C', 2)
